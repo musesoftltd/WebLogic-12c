@@ -1,3 +1,6 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 # A representation of a properties file that defines mappings between classifiers and attributes of the classifier.
 from java.io import FileInputStream
 import re

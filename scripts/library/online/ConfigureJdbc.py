@@ -1,8 +1,11 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+
 import os
 
 import PbCommon as pbc
 from com.muse.properties.secure import EncryptionUtils
-from weblogic.management.scripting.core.utils.wlst_core import WLSTException
+#from weblogic.management.scripting.core.utils.wlst_core import WLSTException
 from wlst.WlstWrapper import cd
 
 

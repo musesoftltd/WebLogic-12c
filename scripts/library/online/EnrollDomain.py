@@ -1,3 +1,6 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 import getopt
 from java.io import FileInputStream
 from java.lang import System
@@ -6,15 +9,7 @@ import os
 import sys
 
 from com.muse.properties.secure import EncryptionUtils
-from weblogic.management.scripting.utils.wlst import nmEnroll
 from wlst.WlstWrapper import connect, disconnect
-
-
-if __name__ == '__main__': 
-    from wlstModule import *  # @UnusedWildImport
-    
-
-
 
 def usage():
     print "Usage:"

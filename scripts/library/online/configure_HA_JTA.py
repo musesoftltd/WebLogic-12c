@@ -1,3 +1,6 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+
 import os
 import os.path
 

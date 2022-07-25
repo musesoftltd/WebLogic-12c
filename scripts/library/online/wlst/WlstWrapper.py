@@ -1,16 +1,15 @@
-from java.lang import String
-from java.lang import System
-import re
-import sys
-
 from com.muse.fmw.platform import NullPrintStream
-import weblogic.management.scripting.utils.WLSTInterpreter as wlst
+from java.lang import String, System
 from weblogic.management.scripting.utils.online_append import *
 from weblogic.management.scripting.utils.wlst import *
 from weblogic.management.scripting.utils.wlst_common import *
-from weblogic.security.internal import SerializedSystemIni
-from weblogic.security.internal.encryption import ClearOrEncryptedService
+import re
+import sys
+import wlstModule as wlst
 
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 
 global STATE_MAPS
 STATE_MAPS = dict()
@@ -59,7 +58,7 @@ global DIR_STACK
 DIR_STACK = Stack()
 
 def newWLSTException(message):
-    return WLSTException(message)
+    return wlst.WLSTException(message)
 
 def getStateMap(name) :
     try :

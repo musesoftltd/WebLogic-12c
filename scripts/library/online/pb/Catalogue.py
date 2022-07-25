@@ -1,6 +1,9 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 from java.util.logging import Logger
 
-from wlst.WlstWrapper import pushd, pwd, popd, lsChildMap, lsmap
+from WlstWrapper import pushd, pwd, popd, lsChildMap, lsmap
 
 
 LOGGER = Logger.getLogger("pb.Catalogue")

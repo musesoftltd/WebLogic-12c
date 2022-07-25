@@ -1,11 +1,12 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+
 import getopt
 from java.io import FileInputStream
 from java.lang import System
 import os
 
 from com.muse.properties.secure import EncryptionUtils
-from weblogic.management.scripting.utils.offline_nonsupported import readTemplate, \
-    setOption, writeDomain, closeTemplate
 from weblogic.management.scripting.utils.wlst import *
 
 

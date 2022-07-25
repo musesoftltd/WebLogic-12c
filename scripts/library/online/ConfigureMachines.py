@@ -1,4 +1,5 @@
-
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
 import os
 
 from wlst.WlstWrapper import cd, create

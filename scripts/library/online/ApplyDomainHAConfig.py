@@ -1,3 +1,6 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 import jarray
 from java.lang import String
 from java.util.logging import *

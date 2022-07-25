@@ -1,3 +1,6 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 import getopt
 from java.io import FileInputStream
 from java.lang import System
@@ -5,7 +8,6 @@ from java.util import Properties
 import os
 import sys
 
-from weblogic.management.scripting.core.utils.wlst_core import WLSTException
 from wlst.WlstWrapper import connect, cd, shutdown, disconnect
 
 
