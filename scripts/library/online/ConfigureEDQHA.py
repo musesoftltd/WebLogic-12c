@@ -1,4 +1,6 @@
-
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 import getopt
 from java.io import FileInputStream
 from java.lang import System

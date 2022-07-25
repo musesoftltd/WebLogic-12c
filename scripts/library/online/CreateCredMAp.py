@@ -1,19 +1,14 @@
-import getopt
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
+from WlstWrapper import connect
+from com.muse.properties.secure import EncryptionUtils
 from java.io import FileInputStream
 from java.lang import System
 from java.util.logging import Logger
+import getopt
 import os
 import sys
-
-from com.muse.properties.secure import EncryptionUtils
-from WlstWrapper import connect
-
-
-if __name__ == '__main__':
-    from wlstModule import *  # @UnusedWildImport
-
-
-
 
 global connected
 connected = False

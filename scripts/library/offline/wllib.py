@@ -1,22 +1,25 @@
-# import weblogic.management.scripting.utils.wlst
 # if __name__ == '__main__': 
-#     from wlstModule import *#@UnusedWildImport
- 
-import jarray
+#     from wlstModule import *  # @UnusedWildImport
+
 from java.lang import String
+import wlstModule as wlst
 
-import weblogic.management.scripting.utils.WLSTUtil as wlst
-from wlstModule import *  # @UnusedWildImport
+import jarray
 
-
-# import weblogic.management.scripting.utils.WLSTUtil. as wlst
+# Legal values for nmType:
+#    "SSH", "RSH", "Plain", "SSL", "ssh", "rsh", "ssl", "plain"
 def createUnixMachine(name, nmType, nmlistenPort):
-    cmo = wlst.wlst.cd('/')
+    cmo = wlst.cd('/')
     cmo.createUnixMachine(name)
 
     cmo = wlst.cd('/Machines/' + name + '/NodeManager/' + name)
     cmo.setNMType(nmType)
-    cmo.setListenPort(nmlistenPort)    
+    cmo.setListenPort(nmlistenPort)
+    
+def deleteUnixMachine(name):
+    cmo = wlst.cd('/')
+    cmo = wlst.cd('/Machines/')
+    wlst.delete(name, 'Machine')          
     
 def createServer(serverName, port):
     # create server
@@ -77,7 +80,7 @@ def createOracleThinJDBCdataSource (
     cmo.setName(dsName)
      
     cmo = wlst.cd('/JDBCSystemResources/' + dsName + '/JDBCResource/' + dsName + '/JDBCDataSourceParams/' + dsName)
-    set('JNDINames', jarray.array(dsJNDINames, String))
+    wlst.set('JNDINames', jarray.array(dsJNDINames, String))
      
     cmo = wlst.cd('/JDBCSystemResources/' + dsName + '/JDBCResource/' + dsName + '/JDBCDriverParams/' + dsName)
     cmo.setUrl(dsURL)
@@ -104,7 +107,7 @@ def createOracleThinJDBCdataSource (
  
     if (datasourceTarget != ''):
         cmo = wlst.cd('/SystemResources/' + dsName)
-        set('Targets', datasourceTarget)
+        wlst.set('Targets', datasourceTarget)
 
     print 'creating a OracleThin datasource...end.'
 
@@ -112,7 +115,7 @@ def targetOracleThinJDBCdataSource(dsName, datasourceTargets):
     print 'targetting: ' + dsName + ' to: ' + str(datasourceTargets) + '...'
     if (datasourceTargets != ''):
         cmo = wlst.cd('/SystemResources/' + dsName)
-        set('Targets', datasourceTargets)    
+        wlst.set('Targets', datasourceTargets)    
     print 'targetting: ' + dsName + ' to: ' + str(datasourceTargets) + '...end.'
     
 def deleteDataSource(dsName):
@@ -144,7 +147,7 @@ def createSQLServerJDBCdataSource (
     cmo.setName(dsName)
      
     cmo = wlst.cd('/JDBCSystemResources/' + dsName + '/JDBCResource/' + dsName + '/JDBCDataSourceParams/' + dsName)
-    set('JNDINames', jarray.array(dsJNDINames, String))
+    wlst.set('JNDINames', jarray.array(dsJNDINames, String))
      
     cmo = wlst.cd('/JDBCSystemResources/' + dsName + '/JDBCResource/' + dsName + '/JDBCDriverParams/' + dsName)
     cmo.setUrl(dsURL)
@@ -181,14 +184,14 @@ def createSQLServerJDBCdataSource (
  
     if (datasourceTarget != ''):
         cmo = wlst.cd('/SystemResources/' + dsName)
-        set('Targets', datasourceTarget)
+        wlst.set('Targets', datasourceTarget)
 
     print 'creating a SQL Server datasource...end.'
 
 def targetSQLServerJDBCdataSource(dsName, datasourceTarget):
     if (datasourceTarget != ''):
         cmo = wlst.cd('/SystemResources/' + dsName)
-        set('Targets', datasourceTarget)
+        wlst.set('Targets', datasourceTarget)
         
 def createFilestore(filestoreName, targets):
     # create file store
@@ -196,7 +199,7 @@ def createFilestore(filestoreName, targets):
     cmo.createFileStore(filestoreName)
     
     cmo = wlst.cd('/FileStores/' + filestoreName)
-    set('Targets', targets)        
+    wlst.set('Targets', targets)        
     cmo.setDirectory(filestoreName)
     cmo.setSynchronousWritePolicy('Direct-Write')
 
@@ -211,7 +214,7 @@ def createJMSModule(moduleName, targets):
     cmo.createJMSSystemResource(moduleName)
     
     cmo = wlst.cd('/SystemResources/' + moduleName)
-    set('Targets', targets)
+    wlst.set('Targets', targets)
     print 'Creating a JMS System module named : ' + moduleName + ' targetted to : ' + str(targets) + '...end.'
     
 def deleteJMSModule(moduleName):
@@ -227,7 +230,7 @@ def createJMSServer(jmsServerName):
 def targetJMSServer(jmsServerName, targets):
     print 'Targetting JMS Server: ' + jmsServerName + ' to : ' + str(targets) + '...'
     cmo = wlst.cd('/Deployments/' + jmsServerName)
-    set('Targets', targets)
+    wlst.set('Targets', targets)
     print 'Targetting JMS Server: ' + jmsServerName + ' to : ' + str(targets) + '...end.'
     
 def deleteJMSServer(jmsServerName):
@@ -244,7 +247,7 @@ def createJMSSubDeployment(jmsModule, subDeploymentName, targets):
     cmo.createSubDeployment(subDeploymentName)
     
     cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-    set('Targets', targets)
+    wlst.set('Targets', targets)
         
     print 'Creating SubDeployment: ' + subDeploymentName + ', with targets: ' + str(targets) + '...end.'        
 
@@ -270,10 +273,10 @@ def createConnectionFactory(connectionFactoryName, jmsModule, targets, subDeploy
         cmo.setSubDeploymentName(subDeploymentName)    
         if (targets != '') :
             cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
     else:
         if (targets != '') :
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
 
     print 'Creating connection factory : ' + connectionFactoryName + '...end.'
 
@@ -292,19 +295,19 @@ def createQueue(queueName, jmsModule, targets, subDeploymentName) :
         cmo.setSubDeploymentName(subDeploymentName)    
         if (targets != '') :
             cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
     else:
         # this code path needs to change to target in the absence of a subDeployment
         if (targets != '') :
             cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
     
     print 'Creating Queue : ' + queueName + '...end.'
     
 def deleteQueue(queueName, jmsModule):
     print 'Deleting Uniform Distributed Queue : ' + queueName + '...'
     cmo = wlst.cd('/JMSSystemResources/' + jmsModule + '/JMSResource/' + jmsModule + '/Queues/')
-    cmo.wlst.delete(queueName)
+    wlst.delete(queueName)
     
     print 'Deleting Uniform Distributed Queue : ' + queueName + '...end.'
 
@@ -325,19 +328,19 @@ def createDistributedQueue(queueName, jmsModule, targets, subDeploymentName, loa
         cmo.setSubDeploymentName(subDeploymentName)    
         if (targets != '') :
             cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
     else:
         # this code path needs to change to target in the absense of a subDeployment
         if (targets != '') :
             cmo = wlst.cd('/SystemResources/' + jmsModule + '/SubDeployments/' + subDeploymentName)
-            set('Targets', targets)            
+            wlst.set('Targets', targets)            
 
     print 'Creating Uniform Distributed Queue : ' + queueName + '...end.'
 
 def deleteDistributedQueue(queueName, jmsModule):
     print 'Deleting Uniform Distributed Queue : ' + queueName + '...'
     cmo = wlst.cd('/JMSSystemResources/' + jmsModule + '/JMSResource/' + jmsModule + '/UniformDistributedQueues/')
-    cmo.wlst.delete(queueName)
+    wlst.delete(queueName)
     
     print 'Deleting Uniform Distributed Queue : ' + queueName + '...end.'
     
@@ -369,3 +372,7 @@ def SetQFailureOptions(systemModule, queueName, backupQueueName):
     
     print 'Setting Queue Failure options for : ' + queueName + '... at System Module: ' + systemModule + '...end.'
         
+def DeployToTarget(packageName, fullPathToPackage, target, targetType="server", upload=True):
+    print 'Deploying:' + packageName + ' to target : ' + target + '...'
+    wlst.deploy(packageName, fullPathToPackage , targets='com.bea:Name='+target+',Type=' + targetType, upload='true')
+    print 'Deploying:' + packageName + ' to target : ' + target + '...end.'

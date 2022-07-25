@@ -1,9 +1,11 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 from java.util.logging import Logger
 import unittest
 
 from PbCommonTest import PbCommonTest
 from pb import PbWlstLib
-from weblogic.management.scripting.core.utils.wlst_core import WLSTException
 from wlst.WlstWrapper import domainConfig, cd, lsmap, domainRuntime, \
     getCurrentState, getAppDeployments
 

@@ -1,6 +1,8 @@
+if __name__ == '__main__': 
+    from wlstModule import *  # @UnusedWildImport
+    
 # Script to perform HA configuration of JTA and JMS in SOA domain
 
-import jarray
 from java.lang import String
 from java.util.logging import Logger
 from javax.management import ObjectName
